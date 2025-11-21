@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/shop_provider.dart';
-import '../screens/product_list_screen.dart'; // Import screen baru
+import '../screens/product_list_screen.dart';
 import '../widgets/product_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -170,10 +170,8 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    // Chip 'All' tetap menggunakan logika lama (filter lokal)
                     _buildChipLocalFilter('All', selectedCategory == 'All'),
                     const SizedBox(width: 10),
-                    // Chip lainnya menggunakan logika navigasi
                     _buildChipWithNavigation('Formal'),
                     const SizedBox(width: 10),
                     _buildChipWithNavigation('Sport'),
@@ -210,7 +208,6 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Fungsi untuk chip 'All' - hanya memfilter di HomeScreen
   Widget _buildChipLocalFilter(String label, bool isSelected) {
     return GestureDetector(
       onTap: () {
@@ -243,11 +240,9 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  // Fungsi untuk chip lainnya - navigasi ke ProductListScreen
   Widget _buildChipWithNavigation(String categoryLabel) {
     return GestureDetector(
       onTap: () {
-        // Navigasi ke ProductListScreen dengan kategori yang dipilih
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -259,7 +254,7 @@ class _HomeScreenState extends State<HomeScreen> {
       child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
         decoration: BoxDecoration(
-          color: Colors.white, // Warna default, tidak ada highlight lokal
+          color: Colors.white,
           borderRadius: BorderRadius.circular(25),
           boxShadow: [
             BoxShadow(
