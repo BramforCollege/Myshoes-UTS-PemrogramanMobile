@@ -1,5 +1,4 @@
-# Myshoes-UTS-PemrogramanMobile
-# Projek Myshop-mini dengan tema sepatu
+# Projek UTS Flutter Myshop-mini dengan tema sepatu
 Muhammad Ibramansah / 231080200103 / 5A2
 
 # Tampilan Homescreen berisi kategori sepatu
