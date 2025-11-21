@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import '../providers/shop_provider.dart';
+import '../screens/product_list_screen.dart'; // Import screen baru
 import '../widgets/product_item.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -169,15 +170,17 @@ class _HomeScreenState extends State<HomeScreen> {
                 scrollDirection: Axis.horizontal,
                 child: Row(
                   children: [
-                    _buildChip('All', selectedCategory == 'All'),
+                    // Chip 'All' tetap menggunakan logika lama (filter lokal)
+                    _buildChipLocalFilter('All', selectedCategory == 'All'),
                     const SizedBox(width: 10),
-                    _buildChip('Formal', selectedCategory == 'Formal'),
+                    // Chip lainnya menggunakan logika navigasi
+                    _buildChipWithNavigation('Formal'),
                     const SizedBox(width: 10),
-                    _buildChip('Sport', selectedCategory == 'Sport'),
+                    _buildChipWithNavigation('Sport'),
                     const SizedBox(width: 10),
-                    _buildChip('Casual', selectedCategory == 'Casual'),
+                    _buildChipWithNavigation('Casual'),
                     const SizedBox(width: 10),
-                    _buildChip('Sneakers', selectedCategory == 'Sneakers'),
+                    _buildChipWithNavigation('Sneakers'),
                   ],
                 ),
               ),
@@ -207,7 +210,8 @@ class _HomeScreenState extends State<HomeScreen> {
     );
   }
 
-  Widget _buildChip(String label, bool isSelected) {
+  // Fungsi untuk chip 'All' - hanya memfilter di HomeScreen
+  Widget _buildChipLocalFilter(String label, bool isSelected) {
     return GestureDetector(
       onTap: () {
         setState(() {
@@ -232,6 +236,44 @@ class _HomeScreenState extends State<HomeScreen> {
           style: TextStyle(
             color: isSelected ? Colors.white : Colors.black87,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.w500,
+            fontSize: 14,
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Fungsi untuk chip lainnya - navigasi ke ProductListScreen
+  Widget _buildChipWithNavigation(String categoryLabel) {
+    return GestureDetector(
+      onTap: () {
+        // Navigasi ke ProductListScreen dengan kategori yang dipilih
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) =>
+                ProductListScreen(initialCategory: categoryLabel),
+          ),
+        );
+      },
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white, // Warna default, tidak ada highlight lokal
+          borderRadius: BorderRadius.circular(25),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.05),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+        ),
+        child: Text(
+          categoryLabel,
+          style: TextStyle(
+            color: Colors.black87,
+            fontWeight: FontWeight.w500,
             fontSize: 14,
           ),
         ),
